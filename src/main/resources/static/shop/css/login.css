@@ -1,0 +1,120 @@
+#container {
+    margin-top: 40px;
+}
+
+.title_page {
+    height: 300px;
+    padding: 30px 0;
+    background-image: url(/shop/img/bg_img_danhmucsanpham.webp);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.title_page-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.title_page-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 100%;
+    color: #ffffff;
+}
+
+.title_page-big {
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.title_page-small {
+    margin-top: 10px;
+}
+
+.title_page-small a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.title_page-small a:hover {
+    color: #d51c24;
+}
+
+/* Phần nội dung của giỏ hàng */
+
+.form_login-main {
+    width: 360px;
+    margin: 0px auto;
+}
+
+.container-main {
+    margin: 10px 0px 60px 0px;
+}
+
+.form_title {
+    font-size: 20px;
+    color: #333333;
+    padding: 0px 0px 15px 0px;
+    margin: 0px 0px 15px 0px;
+    border-bottom: 1px solid #e6e6e6;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.form_login-main input {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    outline: 0px;
+    border: 1px solid #e6e6e6;
+    max-width: 100%;
+    padding: 8px 10px;
+    border-radius: 0px;
+    font-size: 14px;
+    line-height: 1.6;
+    font-family: Roboto;
+    color: #333333;
+}
+
+.form_login-main input[type="submit"] {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    outline: 0px;
+    border: 1px solid transparent;
+    max-width: 100%;
+    padding: 4px 10px;
+    border-radius: 0px;
+    font-size: 14px;
+    line-height: 1.6;
+    font-family: Roboto;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #d51c24;
+}
+
+.form_login-main input[type="submit"]:hover {
+    background-color: #a8161c;
+}
+
+.form_login-main p {
+    text-align: center;
+    margin-top: 10px;
+}
+.form_login-main a {
+    font-size: 14px;
+    text-decoration: none;
+    color: #d51c24;
+}

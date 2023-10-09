@@ -1,0 +1,197 @@
+
+
+
+
+/* Phần banner */
+.banner {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+
+.banner_img {
+    width: 100%;
+    cursor: pointer;
+}
+
+.banner_img img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.main_banner .slick-prev {
+    width: 40px;
+    height: 30px;
+    color: #ffffff;
+    background-color: #d51c24;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 1;
+    border: none;
+    outline: none;
+}
+
+.main_banner .slick-next {
+    width: 40px;
+    height: 30px;
+    color: #ffffff;
+    background-color: #d51c24;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    z-index: 1;
+    border: none;
+    outline: none;
+}
+
+
+/* Phần nội dung */
+#container {
+    width: 100%;
+}
+.book_container {
+    margin: 30px 0px;
+}
+
+.book-title {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+/* .book-list {
+    width:100%;
+    overflow: hidden;
+    height: 380px;
+}
+
+.book-item {
+    width: 192px !important;
+    max-width: 192px !important;
+    margin: 5px 18px ;
+} */
+
+.book-list {
+    position: relative;
+}
+
+.book-wrap-item {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    float: left;
+    min-height: 1px;
+    vertical-align: top;
+    width: 100%;
+    margin: 8px 0px 4px;
+}
+.book-item {
+    padding: 5px;
+    width: 100%;
+}
+
+.book-item:hover {
+    box-shadow: 0 0 8px rgb(0,0,0,0.5);
+}
+
+.item-img {
+    width: 100%;
+}
+
+.item-img img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.item-name {
+    font-size: 14px;
+    color: #333333;
+    font-weight: 600;
+    padding: 5px;
+    height: 46px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 20px;
+}
+
+.item-price {
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.current-price {
+    color: #d51c24;
+}
+
+.original-price {
+    float: right;
+    color: #bebebe;
+    text-decoration: line-through;
+}
+
+.book_container .slick-prev {
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    background-color: #e6e6e6;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 1;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+.book_container .slick-next {
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    background-color: #e6e6e6;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    z-index: 1;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+.see_more {
+    display: flex;
+    float: right;
+    font-size: 14px;
+    color: #d51c24;
+    margin-top: 10px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.see_more-icon {
+    font-size: 10px;
+    margin-left: 3px;
+}
+
+/* Banner dưới */
+
+.banner_1,
+.banner_2,
+.banner_3,
+.banner_4 {
+    width: 100%;
+}
+
+.banner_1 img,
+.banner_2 img,
+.banner_3 img,
+.banner_4 img {
+    width: 100%;
+    object-fit: cover;
+}
+
+
+
+/* Phần footer */

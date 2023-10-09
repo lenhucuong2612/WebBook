@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="stylesheet" href="/shop/css/login.css">
+  <link rel="stylesheet" href="/shop/css/index.css">
+  <link rel="stylesheet" href="/shop/css/main.css">
+  <title>Giỏ hàng</title>
+</head>
+
+<body>
+<!-- Phần header -->
+<div id="header">
+  <div th:replace="fragment :: header_top"></div>
+  <div th:replace="fragment :: header_middle"></div>
+  <div class="header_bottom">
+    <div class="title_page">
+      <div class="title_page-overlay"></div>
+      <div class="wrapper">
+        <ul th:replace="fragment::menu">
+
+        </ul>
+        <div th:replace="fragment::title_page-content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Hết phần header -->
+<!-- Phần giữa -->
+<div id="container">
+  <div class="wrapper">
+    <div class="container-main">
+      <div class="form_login-main">
+        <div class="message" th:if="${param.error}">
+          <span style="text-align: center;padding-bottom: 10px;display: block; color: red">Email hoặc mật khẩu không chính xác</span>
+        </div>
+        <div class="message" th:if="${param.logout}">
+          <span style="text-align: center;padding-bottom: 10px;display: block; color: rgb(14, 130, 130);">Đăng xuất thành công</span>
+        </div>
+
+        <form id="customer_login"  th:action="@{/login}" method="post">
+          <h2 class="form_title">Đăng nhập</h2>
+          <input type="email" placeholder="Email" name="username" >
+          <input type="password" placeholder="Mật khẩu" name="password">
+          <input type="submit"  value="Đăng nhập">
+          <p><a href="">Bỏ qua</a></p>
+          <p><a href="">Đăng ký</a></p>
+          <p><a href="">Quên mật khẩu?</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Hết phần giữa -->
+<hr class="line">
+<!-- Phần footer -->
+
+<!-- Hết phần footer -->
+<!-- Phần btn để click vào sẽ về đầu trang -->
+<div id="backtop"><i class="fa-solid fa-chevron-up"></i></div>
+<!-- Phần form đăng ký đăng nhập -->
+
+<div class="overlay d-none"></div>
+
+</body>
+<!-- import slick slider -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="/shop/js/index.js"></script>
+
+</html>

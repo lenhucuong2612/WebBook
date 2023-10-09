@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="/shop/css/timkiem.css">
+    <link rel="stylesheet" href="/shop/css/main.css">
+    <title>Tìm kiếm sản phẩm</title>
+</head>
+
+<body>
+<!-- Phần header -->
+<div id="header">
+    <div th:replace="fragment :: header_top"></div>
+    <div th:replace="fragment :: header_middle"></div>
+    <div class="header_bottom">
+        <div class="banner">
+            <div class="wrapper" >
+                <ul th:replace="fragment::menu">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hết phần header -->
+<!-- Phần giữa -->
+<div id="container">
+    <div class="wrapper">
+        <div class="container-main">
+            <div class="container_header">
+                <span class="link-index"><a th:href="@{/shop/home}">Trang chủ</a></span>
+                <span>/</span>
+                <span >Tìm kiếm</span>
+                <h1 class="container_header-title">
+                    KẾT QUẢ TÌM KIẾM: <span th:text="${keyword}"></span>
+                </h1>
+            </div>
+            <h2 class="search_title" th:if="${size}!=0">
+                SẢN PHẨM PHÙ HỢP
+            </h2>
+            <h2 class="search_title" th:if="${size}==0">
+                Không tìm thấy sản phẩm phù hợp
+            </h2>
+            <div class="search_content">
+                <div class="search_content-main" th:if="${size}!=0">
+                     <div th:each="products:${products}">
+                         <div class="search-product-wrap" >
+                                 <a th:href="@{/shop/home/product/{productId}(productId=${products.id})}">
+                                     <div class="search-product">
+                                         <div class="search-product-img">
+                                             <img th:src="@{/productImages/{imageName}(imageName=${products.imageName})}" alt="">
+                                         </div>
+                                         <div class="search-product-name">
+                                             <span th:text="${products.name}">Chú Thuật Hồi Chiến - Tập 16 (Tặng Kèm Obi Và Thẻ Bo Góc Nhựa)</span>
+                                         </div>
+                                         <div class="search-product-price">
+                                             <div class="current-price" th:text="${#numbers.formatDecimal(products.salePrice, 0, 'COMMA', 0, 'POINT')}+'đ'"></div>
+                                             <div class="original-price" th:text="${#numbers.formatDecimal(products.salePrice, 0, 'COMMA', 0, 'POINT')}+'đ'"></div>
+                                         </div>
+                                     </div>
+                                 </a>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-panigation" th:if="${size}>12">
+            <div class="panigation-custom">
+                 <span class="prevpage" th:if="${currentPage >=2} ">
+                      <a th:if="${currentPage!=i && id==null}" th:href="@{'/shop/product/search/'+${currentPage-1}+'?keyword='+${keyword}}"><i class="fa-solid fa-angles-left"></i></a>
+                      </span>
+                 <span class="page" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                      <a th:if="${currentPage!=i && id==null}" th:href="@{'/shop/product/search/'+${i}+'?keyword='+${keyword}}">[[${i}]]</a>
+                      <span class="page-active_new" th:if="${currentPage==i}" th:text="${i}"></span>
+                 </span>
+                 <span class="nextpage" th:if="${currentPage <totalPages} ">
+                      <a th:if="${currentPage!=i && id==null}" th:href="@{'/shop/product/search/'+${currentPage+1}+'?keyword='+${keyword}}"><i class="fa-solid fa-angles-right"></i></a>
+                 </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hết phần giữa -->
+
+<hr class="line">
+
+<!-- Phần footer -->
+<div th:replace="fragment :: footer"></div><!-- Hết phần footer -->
+<!-- Phần btn để click vào sẽ về đầu trang -->
+<div id="backtop"><i class="fa-solid fa-chevron-up"></i></div>
+<!-- Phần form đăng ký đăng nhập -->
+
+<div class="overlay d-none"></div>
+
+</body>
+<!-- import slick slider -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="/shop/js/index.js"></script>
+
+</html>

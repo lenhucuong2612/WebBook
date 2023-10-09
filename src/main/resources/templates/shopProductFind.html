@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="/shop/css/chitietsanpham.css">
+    <link rel="stylesheet" href="/shop/css/main.css">
+    <link rel="stylesheet" href="/shop/css/index.css">
+    <title>Chi tiết sản phẩm</title>
+    <style>
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Phần header -->
+<div id="header">
+    <div th:replace="fragment :: header_top"></div>
+    <div th:replace="fragment :: header_middle"></div>
+    <div class="header_bottom">
+        <div class="banner">
+            <div class="wrapper" >
+                <ul th:replace="fragment::menu">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hết phần header -->
+<!-- Phần giữa -->
+<div id="container">
+    <div class="wrapper" >
+        <!-- Phần chọn và tiêu đề của sản phẩm -->
+        <div class="container_header">
+            <span class="link-index"><a href="">Trang chủ</a></span>
+            <span>/</span>
+            <span class="link-manga-comic"><a  th:href="@{/category/{category_id}(category_id=${nameCategory.getId()})}" th:text="${nameCategory.name}"></a></span>
+            <span>/</span>
+            <span th:text="${product.name}"></span>
+        </div>
+        <!-- Phần giới thiệu thông tin chung của sách bao gồm tên, mã ,ảnh ... -->
+
+          <form th:action="@{/shop/add-to-cart}" method="POST">
+              <input th:field="${product.id}" name="id" type="hidden">
+              <div class="content">
+              <div class="product_img-mini"><img th:src="@{/productImages/{imageName}(imageName=${product.imageName})}" alt=""></div>
+              <div class="product_img-big"><img th:src="@{/productImages/{imageName}(imageName=${product.imageName})}" alt=""></div>
+              <div class="product_infor_main">
+                  <h3 class="product_infor-title" th:text="${product.name}"></h3>
+                  <h4 class="product_infor-title" th:text="${product.gift}"></h4>
+                  <div class="evaluate-sold">
+                      <div class="evaluate">
+                          <ul class="list-star">
+                              <li class="item-star"><i class="fa-regular fa-star"></i></li>
+                              <li class="item-star"><i class="fa-regular fa-star"></i></li>
+                              <li class="item-star"><i class="fa-regular fa-star"></i></li>
+                              <li class="item-star"><i class="fa-regular fa-star"></i></li>
+                              <li class="item-star"><i class="fa-regular fa-star"></i></li>
+                          </ul>
+                          <div class="evaluate-quantity" th:text="${product.assess}"></div>
+                          <div class="evaluate-text">Đánh giá</div>
+                          <span>|</span>
+                      </div>
+                      <div class="sold">
+                          <div class="sold-text">Đã bán: </div>
+                          <div class="sold-quantity" th:text="${product.sold}"></div>
+                      </div>
+                  </div>
+                  <hr class="line">
+                  <div class="product_price">
+                      <div class="product_current-price">
+                          <span class="product_current-price" th:text="${#numbers.formatDecimal(product.salePrice, 0, 'COMMA', 0, 'POINT')}"></span> đ
+                      </div>
+                      <div class="product_original-price" ><span class="product_original-price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}+'đ'"></span></div>
+                      <div class="product_price-text">(Bạn đã tiết kiệm được <span th:text="${#numbers.formatDecimal(saleProduct,0,'COMMA',0,'POINT')}"></span> đ) </div>
+                  </div>
+                  <hr class="line">
+                  <div class="product_infor">
+                      <ul class="product_infor-list">
+                          <li class="product_infor-item">Mã Kim Đồng:<b th:text="${product.SKU}"></b></li>
+                          <li class="product_infor-item">ISBN: <b th:text="${product.ISBN}"> </b></li>
+                          <li class="product_infor-item">Tác giả: <a href="#" th:text="${product.author}"></a></li>
+                          <li class="product_infor-item">Đối tượng: <a href="" th:text="${product.object}"></a></li>
+                          <li class="product_infor-item" >Khuôn khổ: <span th:text="${product.framework}"></span> cm</li>
+                          <li class="product_infor-item" >Số trang: <span th:text="${product.pageNumber}"></span></li>
+                          <li class="product_infor-item">Định dang: <span th:text="${product.format}"></span> </li>
+                          <li class="product_infor-item">Trọng lượng: <span th:text="${product.weight}"></span> gam</li>
+                          <li class="product_infor-item">Bộ sách: <a href="" th:text="${product.boolSeries}"></a></li>
+                      </ul>
+                      <div class="product_infor-quantity">
+                          <div class="product_infor-quantity-text">Số lượng</div>
+                          <div class="product_infor-quantity-plus-minus">
+                              <button class="product_infor-quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                              <input type="number" name="quantity" value="1">
+                              <button class="product_infor-quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                          </div>
+                          <button type="submit" class="product_infor-quantity-actions">Thêm vào giỏ hàng</button>
+                          <button class="product_infor-quantity-like"><i class="fa-solid fa-check"></i> Thích
+                              <span>1</span></button>
+                          <button class="product_infor-quantity-share">Chia sẻ</button>
+                      </div>
+                  </div>
+              </div>
+              </div>
+          </form>
+
+        <!-- Hết Phần giới thiệu thông tin chung của sách bao gồm tên, mã ,ảnh ... -->
+
+        <!-- Phần xem thêm review và bình luận của khách -->
+        <div class="product_more-information">
+            <div class="product_more-information-left">
+                <div class="product_description">
+                    <div class="product_description-header">
+                        <button class="review active">Mô tả - Đánh giá</button>
+                        <button class="comment">Bình luận</button>
+                    </div>
+                    <!-- PHần review -->
+                    <div class="review_main">
+                        <p class="content_review" th:text="${product.description}">
+                        </p>
+
+                        <div class="img_review">
+                            <img src="./src/assets/img/chu-thuat-hoi-chien_ban-dac-biet_bia-tang-kem_tap-17.webp"
+                                 alt="">
+                        </div>
+                    </div>
+                    <!-- Phần bình luận -->
+                    <div class="comment_main d-none">
+                        <div class="comment_wrapper">
+                            <div class="comment_header">
+                                <div class="comment_quantity">
+                                    <b><span>0</span><span>bình luận</span></b>
+                                </div>
+                                <div class="comment_filter">
+                                    <span>Sắp xếp theo</span>
+                                    <select name="comment_filter" >
+                                        <option value="">Mới nhất</option>
+                                        <option value="">Cũ nhất</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr class="line">
+                            <div class="player_comment">
+                                <div class="player_comment-img"><img src="./src/assets/img/avata.jpeg" alt=""></div>
+                                <div class="frame_write-comment">
+                                    <textarea class="player_comment-content" placeholder="Viết bình luận"></textarea>
+                                    <div class="post_comment"><button>Đăng</button></div>
+                                </div>
+                            </div>
+                            <hr class="line">
+                            <div class="posted-on-facebook">
+                                <div class="posted-on-facebook-icon"><i class="fa-brands fa-square-facebook"></i>
+                                </div>
+                                <a class="posted-on-facebook-link">Plugin bình luận trên Facebook</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Hết bình luận -->
+                <!-- Phần đánh giá sản phẩm -->
+                <div class="products_review">
+                    <div class="products_review-wrapper">
+                        <div class="products_review-header">
+                            <h3 class="products_review-title">Đánh giá sản phẩm</h3>
+                            <div class="products_review-header-main">
+                                <div class="products_review-header-left">
+                                    <div class="products_review-star">
+                                        <i class="fa-regular fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    </div>
+                                    <div>Dựa trên 0 đánh giá</div>
+                                </div>
+                                <div class="products_review-header-right">
+                                    <a href="#" class="write-preview"><i class="fa-solid fa-comments"></i><span>Viết
+                                                đánh giá</span></a>
+                                    <a href="#" class="ask-question"><i
+                                            class="fa-regular fa-pen-to-square"></i><span>Đặt câu hỏi</span></a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <hr class="line">
+                        <div class="products_review-container">
+                            <!-- Form để viết phần đánh giá của bản thân -->
+                            <form action="" class=" form_write-preview d-none" id="form_write-preview ">
+                                <div class="form_header" th:if="${user!=null}">
+                                    <div>
+                                        <div class="form_header-text">Tên</div>
+                                        <input type="text" placeholder="Nhập tên của bạn" th:field="${user.lastName}">
+                                    </div>
+                                    <div>
+                                        <div class="form_header-text">Email</div>
+                                        <input type="text" placeholder="hi@example.com" th:field="${user.email}">
+                                    </div>
+                                    <div>
+                                        <div class="form_header-text">Số điện thoại</div>
+                                        <input type="text" placeholder="Nhập số điện thoai của bạn" th:if="${user.phoneNumber!=null}" th:text="${user.phoneNumber}">
+                                        <input type="text" placeholder="Nhập số điện thoai của bạn">
+                                    </div>
+                                </div>
+                                <div class="form_header" th:if="${user==null}">
+                                    <div>
+                                        <div class="form_header-text">Tên</div>
+                                        <input type="text" placeholder="Nhập tên của bạn" >
+                                    </div>
+                                    <div>
+                                        <div class="form_header-text">Email</div>
+                                        <input type="text" placeholder="hi@example.com" >
+                                    </div>
+                                    <div>
+                                        <div class="form_header-text">Số điện thoại</div>
+                                        <input type="text" placeholder="Nhập số điện thoai của bạn" >
+                                    </div>
+                                </div>
+                                <div class="form_header-middle">
+                                    <div class="form_header-middle-text" for="">Đánh giá</div>
+                                    <div class="form_header-middle-star" for="">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <div class="form_write-review-title">
+                                        <div for="">Tiêu đề đánh giá</div>
+                                        <input type="text" placeholder="Nhập tiêu đề đánh giá của bạn">
+                                    </div>
+                                    <div class="form_content">
+                                        <div for="">Nội dung</div>
+                                        <textarea name=""  cols="30" rows="7"
+                                                  placeholder="Viết nội dung đánh giá của bạn"></textarea>
+                                    </div>
+                                    <div class="form_link-video">
+                                        <div for="">Link video (Không bắt buộc)</div>
+                                        <input type="text" placeholder="Nhập link youtube video của bạn">
+                                    </div>
+                                    <div class="form_img">
+                                        <label >Hình ảnh (không bắt buộc)</label>
+                                        <input type="file" id="file-input" name="file-input" />
+                                        <label id="file-input-label" for="file-input">Chọn hình</label>
+                                        <button>Gửi đánh giá</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                            <!-- Form để đặt câu hỏi của bản thân -->
+                            <form action="" class="form_ask-question d-none"  id="form_ask-question ">
+                                <div class="form_header">
+                                    <div>
+                                        <div class="form_header-text">Tên</div>
+                                        <input type="text" placeholder="Nhập tên của bạn">
+                                    </div>
+                                    <div>
+                                        <div class="form_header-text">Email</div>
+                                        <input type="text" placeholder="hi@example.com">
+                                    </div>
+                                    <div>
+                                        <div class="form_header-text">Số điện thoại</div>
+                                        <input type="text" placeholder="Nhập số điện thoai của bạn">
+                                    </div>
+                                </div>
+                                <div class="form_content">
+                                    <div for="">Nội dung</div>
+                                    <textarea name=""  cols="30" rows="7"
+                                              placeholder="Viết nội dung đánh giá của bạn"></textarea>
+                                </div>
+                                <button class="form_ask-question-btn">Gửi đánh giá</button>
+                            </form>
+                            <div class="product_more-information-footer">
+                                    <span class="product_more-information-footer-review border_bottom">Đánh giá
+                                        <button>0</button></span>
+                                <span class="product_more-information-footer-question">Câu hỏi và trả lời
+                                        <button>0</button></span>
+                            </div>
+                            <hr class="line">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Phần tác phẩm cùng tác giả với cuốn sách -->
+            <div class="product_more-information-right">
+                <div class="related">
+                    <div class="related-title">Sách cùng tác giả</div>
+                    <div class="related-wrapper" >
+                        <ul class="related-list" >
+                            <a class="related-item" th:each="author:${author}" th:href="@{/shop/home/product/{id}(id=${author.id})}">
+                                <div class="related-item-img"><img th:src="@{/productImages/{imageName}(imageName=${author.imageName})}" alt=""></div>
+                                <div class="related-item-name" th:text="${author.name}"></div>
+                                <div class="related_product-item-price">
+                                    <span class="related_product-current-price" th:text="${#numbers.formatDecimal(author.salePrice, 0, 'COMMA', 0, 'POINT')}+'đ'">58,500đ</span>
+                                    <span class="related_product-original-price" th:text="${#numbers.formatDecimal(author.price, 0, 'COMMA', 0, 'POINT')}+'đ'">65,000đ</span>
+                                </div>
+                            </a>
+                        </ul>
+                        <div class="related_see-more"><button class="">Xem thêm</button></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hết phần giữa -->
+<!-- Phần slider giới thiệu thêm gồm 3 slider -->
+<div id="related">
+    <div class="wrapper">
+        <!-- slider 1 -->
+        <div id="related_product-1">
+            <div class="related_product-header">
+                <h2 class="related_product-header-title">SÁCH CÙNG THỂ LOẠI</h2>
+            </div>
+            <div class="related_product-list" id="related_product-list-1">
+                <a class="related_product-wrap-item" th:each="ProductByCategory:${ProductByCategory}" th:href="@{/shop/home/product/{id}(id=${ProductByCategory.id})}">
+                    <div class="related_product-item">
+                        <div class="related_product-item-img"><img th:src="@{/productImages/{imageName}(imageName=${ProductByCategory.imageName})}"></div>
+                        <div class="related_product-item-name" th:text="${ProductByCategory.name}"></div>
+                        <div class="related_product-item-price">
+                            <span class="related_product-current-price" th:text="${#numbers.formatDecimal(ProductByCategory.salePrice, 0, 'COMMA', 0, 'POINT')}+'đ'">58,500đ</span>
+                            <span class="related_product-original-price" th:text="${#numbers.formatDecimal(ProductByCategory.price, 0, 'COMMA', 0, 'POINT')}+'đ'">65,000đ</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="related_product-see-more">
+                <a href="">
+                    <div class="related_product-see-more-text">Xem thêm</div>
+                    <div class="related_product-see-more-icon"><i class="fa-solid fa-angles-right"></i></div>
+                </a>
+            </div>
+        </div>
+        <!-- slider 2 -->
+        <div id="related_product-2">
+            <div class="related_product-header">
+                <h2 class="related_product-header-title">SÁCH CÙNG BỘ</h2>
+            </div>
+            <div class="related_product-list" id="related_product-list-2">
+                <a class="related_product-wrap-item" th:each="boolSeries:${boolSeries}" th:href="@{/shop/home/product/{id}(id=${boolSeries.id})}">
+                    <div class="related_product-item">
+                        <div class="related_product-item-img"><img th:src="@{/productImages/{imageName}(imageName=${boolSeries.imageName})}"></div>
+                        <div class="related_product-item-name" th:text="${boolSeries.name}">Chú Thuật Hồi Chiến - Tập 17 - Bản giới hạn (TẶNG KÈM BỌC BẢO VỆ SÁCH)</div>
+                        <div class="related_product-item-price">
+                            <span class="related_product-current-price" th:text="${#numbers.formatDecimal(boolSeries.salePrice, 0, 'COMMA', 0, 'POINT')}+'đ'">58,500đ</span>
+                            <span class="related_product-original-price" th:text="${#numbers.formatDecimal(boolSeries.price, 0, 'COMMA', 0, 'POINT')}+đ">65,000đ</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+            <div class="related_product-see-more">
+                <a href="">
+                    <div class="related_product-see-more-text">Xem thêm</div>
+                    <div class="related_product-see-more-icon"><i class="fa-solid fa-angles-right"></i></div>
+                </a>
+            </div>
+        </div>
+        <!-- slider 3 phần sách đã xem -->
+        <div id="seen_product">
+            <div class="related_product-header">
+                <h2 class="related_product-header-title">Sản phẩm đã xem</h2>
+            </div>
+            <div class="related_product-list" id="seen_product-list">
+                <a class="related_product-wrap-item" th:each="view_list:${view_list}" th:href="@{/shop/home/product/{id}(id=${view_list.id})}">
+                    <div class="related_product-item">
+                        <div class="related_product-item-img"><img th:src="@{/productImages/{imageName}(imageName=${view_list.imageName})}"></div>
+                        <div class="related_product-item-name" th:text="${view_list.name}">Chú Thuật Hồi Chiến - Tập 17 - Bản giới hạn (TẶNG KÈM BỌC BẢO VỆ SÁCH)</div>
+                        <div class="related_product-item-price">
+                            <span class="related_product-current-price" th:text="${#numbers.formatDecimal(view_list.salePrice, 0, 'COMMA', 0, 'POINT')}+'đ'">58,500đ</span>
+                            <span class="related_product-original-price" th:text="${#numbers.formatDecimal(view_list.price, 0, 'COMMA', 0, 'POINT')}+'đ'">65,000đ</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+            <div class="related_product-see-more">
+                <a href="">
+                    <div class="related_product-see-more-text">Xem thêm</div>
+                    <div class="related_product-see-more-icon"><i class="fa-solid fa-angles-right"></i></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="line">
+<!-- Phần footer -->
+<div th:replace="fragment :: footer"></div>
+ <!-- Hết phần footer -->
+<!-- Phần btn để click vào sẽ về đầu trang -->
+<div id="backtop"><i class="fa-solid fa-chevron-up"></i></div>
+<!-- Phần form đăng ký đăng nhập -->
+<div class="overlay d-none"></div>
+
+</body>
+<!-- import slick slider -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="/shop/js/index.js"></script>
+<script src="/shop/js/chitietsanpham.js"></script>
+</html>

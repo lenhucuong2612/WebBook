@@ -1,0 +1,153 @@
+#container {
+    width: 100%;
+    padding-top: 60px;
+}
+
+
+.container_header {
+    font-size: 14px;
+    color: #000;
+}
+
+.container_header a {
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+}
+
+.container_header a:hover {
+    color: #d51c24;
+}
+
+.container_header-title {
+    font-size: 18px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 30px 0px ;
+}
+
+.search_title {
+    font-size: 22px;
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 30px ;
+}
+.search_content-main {
+    display: grid;
+    grid-template-columns: repeat(4,25%);
+}
+.search-product-wrap {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.search-product {
+    margin: 0 15px 15px 15px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    background: #fff;
+    padding: 5px;
+}
+
+.search-product:hover {
+    box-shadow: 0 0 8px rgb(0,0,0,0.5);
+}
+
+.search-product-img {
+    position: relative;
+    overflow: hidden;
+}
+
+.search-product-img img {
+    width: 100%;
+    object-fit: cover;
+}
+.search-product-name {
+    margin-bottom: 5px;
+    min-height: 34px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.search-product-name a {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+    text-decoration: none;
+    display: block;
+    white-space: wrap;
+    text-overflow: ellipsis;
+    letter-spacing: 1px;
+}
+
+.search-product-name a:hover {
+    color: #d51c24;
+    cursor: pointer;
+}
+
+.search-product-price {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.current-price {
+    color: #d51c24;
+}
+
+.original-price {
+    color: #bebebe;
+    text-decoration: line-through;
+}
+
+.container-panigation {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.panigation-custom > span {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    margin: 5px;
+    text-align: center !important;
+}
+
+.panigation-custom > span > a {
+    display: inline-block;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    width: 40px;
+    padding: 0px;
+    color: #333333;
+    background: #fff;
+    border: 1px solid #333333;
+    border-radius: 3px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.panigation-custom > span > a:hover {
+    background: #d51c24;
+    border: none;
+    color: #ffffff;
+}
+
+.page-active > a {
+    background: #d51c24 !important;
+    border: none !important;
+    color: #ffffff !important;
+}
+.page-active_new{
+    padding: 10px 16px;
+    color: white;
+    border-radius: 4px;
+    font-weight: 700;
+    background-color: #d51c24;
+}

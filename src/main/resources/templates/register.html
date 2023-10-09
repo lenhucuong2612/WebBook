@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="/shop/css/dangky.css">
+    <link rel="stylesheet" href="/shop/css/index.css">
+    <link rel="stylesheet" href="/shop/css/main.css">
+    <title>Giỏ hàng</title>
+</head>
+
+<body>
+<!-- Phần header -->
+<div id="header">
+    <div th:replace="fragment :: header_top"></div>
+    <div th:replace="fragment :: header_middle"></div>
+    <div class="header_bottom">
+        <div class="title_page">
+            <div class="title_page-overlay"></div>
+            <div class="wrapper">
+                <ul th:replace="fragment::menu">
+
+                </ul>
+                <div th:replace="fragment::title_page-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hết phần header -->
+<!-- Phần giữa -->
+<div id="container">
+    <div class="wrapper">
+        <div class="container-main">
+            <div class="form_register-main">
+                <form th:action="@{/registration}" id="customer_register" method="post" th:object="${user}">
+                    <h2 class="form_title">Đăng ký</h2>
+                    <span style="text-align: center;padding-bottom: 10px;display: block; color: rgb(14, 130, 130);">
+                        [[${message1}]]
+                    </span>
+                    <span style="text-align: center;padding-bottom: 10px;display: block; color: red">
+                        [[${message2}]]
+                    </span>
+                    <input type="text" placeholder="Tên" name="firstName" th:field="*{firstName}">
+                    <input type="text" placeholder="Họ" name="lastName" th:field="*{lastName}">
+                    <input type="email" placeholder="Email" name="email" th:field="*{email}">
+                    <input type="password" placeholder="Mật khẩu" name="password" th:field="*{password}">
+                    <input type="submit" name="submit" value="Đăng ký"></input>
+
+                    <p><a href="">Bỏ qua</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hết phần giữa -->
+<hr class="line">
+<!-- Phần footer -->
+<div th:replace="fragment :: footer"></div>
+ <!-- Hết phần footer -->
+<!-- Phần btn để click vào sẽ về đầu trang -->
+<div id="backtop"><i class="fa-solid fa-chevron-up"></i></div>
+<!-- Phần form đăng ký đăng nhập -->
+
+<div class="overlay d-none"></div>
+
+</body>
+<!-- import slick slider -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="/shop/js/index.js"></script>
+
+</html>

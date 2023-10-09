@@ -1,0 +1,187 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css}">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/shop/css/index.css">
+    <link rel="stylesheet" href="/shop/css/main.css">
+    <title>index</title>
+</head>
+
+<body>
+<div id="header">
+    <div th:replace="fragment :: header_top"></div>
+    <div th:replace="fragment :: header_middle"></div>
+    <div class="header_bottom">
+        <div class="banner">
+            <div class="wrapper" >
+                <ul th:replace="fragment::menu">
+
+                </ul>
+            </div>
+            <div th:replace="fragment :: banner"></div>
+        </div>
+    </div>
+</div>
+<div id="container">
+    <div class="wrapper">
+        <div class="book_container new_book ">
+            <h2 class="book-title">Sách mới</h2>
+            <div class="book-list new_book-list" >
+                <a class="book-item" th:each="products:${productNew}" th:href="@{/shop/home/product/{productId}(productId=${products.id})}">
+                    <div class="item-img"><img th:src="@{/productImages/{imageName}(imageName=${products.imageName})}" alt=""></div>
+                    <div class="item-name" th:text="${products.name}"></div>
+                    <div class="item-price">
+                        <span class="current-price"><span th:text="${#numbers.formatDecimal(products.salePrice, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                        <span class="original-price"><span th:text="${#numbers.formatDecimal(products.price, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                    </div>
+                </a>
+
+            </div>
+            <div class="see_more">
+                <div class="see_more-text">Xem thêm</div>
+                <div class="see_more-icon"><i class="fa-solid fa-angles-right"></i></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="wrapper">
+        <div class="book_container  bestselling_book ">
+            <h2 class="book-title">Sách bán chạy</h2>
+            <div class="book-list ">
+                <a class="book-item" th:each="products:${productSold}" th:href="@{/shop/home/product/{productId}(productId=${products.id})}">
+                    <div class="item-img"><img th:src="@{/productImages/{imageName}(imageName=${products.imageName})}" alt=""></div>
+                    <div class="item-name" th:text="${products.name}"></div>
+                    <div class="item-price">
+                        <span class="current-price"><span th:text="${#numbers.formatDecimal(products.salePrice, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                        <span class="original-price"><span th:text="${#numbers.formatDecimal(products.price, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                    </div>
+                </a>
+            </div>
+            <div class="see_more">
+                <div class="see_more-text">Xem thêm</div>
+                <div class="see_more-icon"><i class="fa-solid fa-angles-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="banner_1">
+        <img src="/shop/img/banner1.webp" alt="">
+    </div>
+    <div class="wrapper">
+        <div class="book_container  combo_book ">
+            <h2 class="book-title">Combo</h2>
+            <div class="book-list ">
+                <a class="book-item" th:each="products:${combo}" th:href="@{/shop/home/product/{productId}(productId=${products.id})}">
+                    <div class="item-img"><img th:src="@{/productImages/{imageName}(imageName=${products.imageName})}" alt=""></div>
+                    <div class="item-name" th:text="${products.name}"></div>
+                    <div class="item-price">
+                        <span class="current-price"><span th:text="${#numbers.formatDecimal(products.salePrice, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                        <span class="original-price"><span th:text="${#numbers.formatDecimal(products.price, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                    </div>
+                </a>
+            </div>
+            <div class="see_more">
+                <div class="see_more-text">Xem thêm</div>
+                <div class="see_more-icon"><i class="fa-solid fa-angles-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="banner_2">
+        <img src="/shop/img/banner2.jpg" alt="">
+    </div>
+    <div class="wrapper">
+        <div class="book_container  manga-comic_book ">
+            <h2 class="book-title">manga - comic</h2>
+            <div class="book-list ">
+                <a class="book-item" th:each="products:${manga}" th:href="@{/shop/home/product/{productId}(productId=${products.id})}">
+                    <div class="item-img"><img th:src="@{/productImages/{imageName}(imageName=${products.imageName})}" alt=""></div>
+                    <div class="item-name" th:text="${products.name}"></div>
+                    <div class="item-price">
+                        <span class="current-price"><span th:text="${#numbers.formatDecimal(products.salePrice, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                        <span class="original-price"><span th:text="${#numbers.formatDecimal(products.price, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                    </div>
+                </a>
+
+            </div>
+            <div class="see_more">
+                <div class="see_more-text">Xem thêm</div>
+                <div class="see_more-icon"><i class="fa-solid fa-angles-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="banner_3">
+        <img src="/shop/img/banner3.webp" alt="">
+    </div>
+    <div class="wrapper">
+        <div class="book_container  doraemon_book ">
+            <h2 class="book-title">Doraemon</h2>
+            <div class="book-list ">
+                <a class="book-item" th:each="products:${doremon}" th:href="@{/shop/home/product/{productId}(productId=${products.id})}">
+                    <div class="item-img"><img th:src="@{/productImages/{imageName}(imageName=${products.imageName})}" alt=""></div>
+                    <div class="item-name" th:text="${products.name}"></div>
+                    <div class="item-price">
+                        <span class="current-price"><span th:text="${#numbers.formatDecimal(products.salePrice, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                        <span class="original-price"><span th:text="${#numbers.formatDecimal(products.price, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                    </div>
+                </a>
+
+            </div>
+            <div class="see_more">
+                <div class="see_more-text">Xem thêm</div>
+                <div class="see_more-icon"><i class="fa-solid fa-angles-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="banner_4">
+        <img src="/shop/img/banner4.webp" alt="">
+    </div>
+    <div class="wrapper">
+        <div class="book_container wings_book ">
+            <h2 class="book-title">wingsbooks</h2>
+            <div class="book-list ">
+                <a class="book-item" th:each="products:${wingsbooks}" th:href="@{/shop/home/product/{productId}(productId=${products.id})}">
+                    <div class="item-img"><img th:src="@{/productImages/{imageName}(imageName=${products.imageName})}" alt=""></div>
+                    <div class="item-name" th:text="${products.name}"></div>
+                    <div class="item-price">
+                        <span class="current-price"><span th:text="${#numbers.formatDecimal(products.salePrice, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                        <span class="original-price"><span th:text="${#numbers.formatDecimal(products.price, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                    </div>
+                </a>
+
+            </div>
+            <div class="see_more">
+                <div class="see_more-text">Xem thêm</div>
+                <div class="see_more-icon"><i class="fa-solid fa-angles-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <hr class="line">
+</div>
+<div id="backtop"><i class="fa-solid fa-chevron-up"></i></div>
+<div th:replace="fragment :: footer"></div>
+<div class="overlay d-none"></div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="/shop/js/index.js"></script>
+<script src="/shop/js/chitietsanpham.js"></script>
+</html>

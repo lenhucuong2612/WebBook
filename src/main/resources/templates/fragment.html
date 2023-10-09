@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="header_top" th:fragment="header_top">
+    <div class="wrapper">
+        <div class="header_top-main">
+            <div class="header_top-left">
+                <div class="header_top-left-icon">
+                    <a href=""><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href=""><i class="fa-brands fa-instagram"></i></a>
+                    <a href=""><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="header_top-center">
+                <i class="fa fa-rss"></i>
+                <marquee behavior="" direction="">
+                    Chào mừng bạn đến với NXB KIM ĐỒNG.Nếu bạn cần giúp đỡ hãy liên hệ với chúng tôi qua
+                    hotline (+84)1900571595 hoặc email cskh_online@nxbkimdong.com.vn
+                </marquee>
+            </div>
+            <div class="header_top-right">
+                <div class="header_top-right-icon">
+                    <a href=""><i class="fa-solid fa-phone"></i></a>
+                </div>
+                <a href="" class="phone">(+84)1900571595</a>
+                <div class="header_top-right-icon">
+                    <a href=""><i class="fa-solid fa-envelope"></i></i></a>
+                </div>
+                <a href="" class="mail">cskh_online@nxbkimdong.com.vn</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="header_middle" th:fragment="header_middle">
+    <div class="wrapper">
+        <div class="header_middle-main">
+            <div class="search-main">
+                <form th:action="@{/shop/product/search/1}" method="GET" class="form-search">
+                    <div class="search_input-group">
+                        <input onkeyup="search1()" type="text" id="search-input-1" autocomplete="off" class="search-input" placeholder="Tìm kiếm ..." name="keyword">
+
+                        <button class="search-icon" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                    <div class="search_smart">
+                        <div class="search_smart-wrap">
+                            <div class="search_smart-main">
+                                <div class="search_smart-title ">
+
+                                </div>
+                                <div class="search_smart-product ">
+                                </div>
+
+                                <div class="search_smart-footer ">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!--
+                <div class="search_smart">
+                    <div class="search_smart-wrap">
+                        <div class="search_smart-main">
+                            <div class="search_smart-title ">
+                                <span>Sản phẩm</span>
+                                <a href="">Xem thêm(30)</a>
+                            </div>
+                            <div class="search_smart-product ">
+                                <div class="search_smart-product-wrap">
+                                    <a href="">
+                                        <div class="search_smart-product-img"><a href=""><img src="./src/assets/img/search_sp1.webp" alt=""></a></div>
+                                        <div class="search_smart-product-infor">
+                                            <div class="search_smart-product-name"><a href="">Chú thuật hồi chiến - Tập 1</a></div>
+                                            <div class="search_smart-product-price">
+                                                <div class="search_smart-product-current-price">25,500đ</div>
+                                                <div class="search_smart-product-original-price">30,000đ</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="search_smart-footer ">
+                                <p>Không có tin tức nào cho: <span>Chú thuật hồi chiến </span></p>
+                            </div>
+                            <div class="no-product-load">
+                                <img src="./src/assets/img/loading1.webp" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+
+            </div>
+
+            <div class="logo">
+                <a th:href="@{/shop/home}"><img src="/shop/img/logo.webp" alt=""></a>
+            </div>
+            <!-- Phần đăng ký đăng nhập -->
+            <div class="header_middle-right">
+                <a class="signin" th:href="@{/login}" sec:authorize="isAnonymous()">
+                    <div class="signin-icon"><i class="fa fa-sign-in"></i></div>
+                    <div class="signin-text">Đăng nhập</div>
+                </a>
+                <div class="signin"   sec:authorize="hasAuthority('USER')">
+                    <div class="signin-icon"><i class="fa-solid fa-user"></i></div>
+                    <div class="signin-text" th:text="${user.firstName}"></div>
+                </div>
+                <a class="signin" th:href="@{/logout}" sec:authorize="isAuthenticated()">
+                    <div class="signin-icon"><i class="fa fa-sign-in"></i></div>
+                    <div class="signin-text">Đăng xuất</div>
+                </a>
+                <a class="register" th:href="@{/registration}" sec:authorize="isAnonymous()">
+                    <div class="register-icon"><i class="fa-regular fa-pen-to-square"></i></div>
+                    <div class="register-text">Đăng ký</div>
+                </a>
+                <a href="" class="icon-like">
+                    <i class="fa-regular fa-heart"></i>
+                    <div class="quantity">0</div>
+                </a>
+                <div class="cart_icon">
+                    <a href="#" class="icon-cart">
+                        <i class="fa fa-shopping-bag"></i>
+                        <div th:if="${totalItems!=null}">
+                            <div class="quantity" th:text="${totalItems}"></div>
+                        </div>
+                        <div th:unless="${totalItems!=null}">
+                            <div class="quantity">0</div>
+                        </div>
+                    </a>
+                    <!-- Phần giỏ hàng -->
+                    <div class="view_cart" th:if="${shoppingCart!=null}">
+                        <h3 class="view_cart-title">Giỏ hàng của tôi <span th:text="${totalItems}"></span> <span id="view_cart-close"><i
+                                class="fa-solid fa-xmark"></i></span> </h3>
+                       <form method="GET">
+                           <ul class="view_cart-list">
+                               <li class="view_cart-item" th:each="cartItem:${shoppingCart.cartItems}">
+                                      <input th:value="${cartItem.product.id}" type="hidden" name="id">
+                                      <div class="view_cart-item-img"><img th:src="@{/productImages/{imageName}(imageName=${cartItem.product.imageName})}" alt="">
+                                      </div>
+                                      <div class="view_cart-item-content">
+                                          <div class="view_cart-item-name"><a th:href="@{/shop/home/product/{id}(id=${cartItem.product.id})}" th:text="${cartItem.product.name}"></a></div>
+                                          <div class="view_cart-item-quantity">Số lượng: <span th:text="${cartItem.quantity}"></span></div>
+                                          <div class="view_cart-item-price" > Giá s/p: <span th:text="${#numbers.formatDecimal(cartItem.unitPrice, 0, 'COMMA', 0, 'POINT')}+'đ'"></span></div>
+                                      </div>
+                                   <div class="view_cart-item-icon">
+                                       <a th:href="@{/shop/updateCart/delete/{id} (id=${cartItem.product.id})}" style="color: red;text-decoration: none;">X</a>
+                                   </div>
+                               </li>
+                           </ul>
+                           <div class="view_cart-total">Tạm tính: <span th:text="${#numbers.formatDecimal(subTotal, 0, 'COMMA', 0, 'POINT')}+'đ'"></span></div>
+                           <div class="view_cart-footer">
+                               <a class="see_cart" th:href="@{/shop/cart}">Xem giỏ hàng</a>
+                               <button class="pay">Thanh toán</button>
+                           </div>
+                       </form>
+                    </div>
+                    <div class="view_cart">
+                        <h3 class="view_cart-title">Giỏ hàng của tôi <span></span> <span id="view_cart-close"><i
+                                class="fa-solid fa-xmark"></i></span> </h3>
+                        <p>Giỏ hàng trống</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- Hết Phần header giữa -->
+    <!--  Phần header dưới có banner -->
+</div>
+
+<ul class="menu" th:fragment="menu">
+    <li class="category">
+        <div class="category-title">
+            <div class="category-icon"><i class="fa fa-bars"></i></div>
+            <div class="category-text">Danh mục sản phẩm</div>
+        </div>
+    </li>
+
+    <div class="category_menu">
+        <ul class="category_list">
+            <li class="category_item">
+                <a th:href="@{/shop/category/all}">Tất cả sản phẩm</a>
+            </li>
+            <li class="category_item" th:each="categories: ${categories}">
+                <a th:href="@{/shop/category/{id}/1 (id=${categories.id})}">
+                    <div class="category_item-icon"><i class="fa-solid fa-book-open"></i></div>
+                    <div class="category_item-text" th:text="${categories.name}"></div>
+                </a>
+            </li>
+            <li class="category_item category_item-age">
+                <a href="">
+                    <div class="category_item-icon"><i class="fa-solid fa-book-open"></i></div>
+                    <div class="category_item-text">Độ tuổi</div>
+                    <div class="category_item-icon-next"><i class="fa-solid fa-angle-right"></i></div>
+                </a>
+            </li>
+            <div class="menu_age">
+                <ul class="age_list">
+                    <li class="age_item">
+                        <a href=""><div class="age_item-text">Nhà trẻ,Mẫu giáo (0 - 5 tuổi)</div></a>
+                    </li>
+                    <li class="age_item">
+                        <a href=""><div class="age_item-text">Nhi đồng (6 - 10 tuổi)</div></a>
+                    </li>
+                    <li class="age_item">
+                        <a href=""><div class="age_item-text">Thiếu niên (11 - 15 tuổi)</div></a>
+                    </li>
+                    <li class="age_item">
+                        <a href=""><div class="age_item-text">Tuổi mới lớn (16 - 18 tuổi)</div></a>
+                    </li>
+                    <li class="age_item">
+                        <a href=""> <div class="age_item-text">Tuổi trưởng thành (Trên 18 tuổi)</div></a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+    </div>
+    <li class="news">
+        <div class="news_title">
+            <div class="news_title-text">Tin tức</div>
+            <div class="news_title-icon"><i class="fa-solid fa-chevron-down"></i></div>
+        </div>
+    </li>
+    <div class="news_menu">
+        <ul class="news_menu-list">
+            <li class="news_menu-item"> <a href="">Hoạt động</a></li>
+            <li class="news_menu-item"> <a href="">Sự kiện</a></li>
+            <li class="news_menu-item"> <a href="">Điểm sách</a></li>
+            <li class="news_menu-item"> <a href="">Sách giả - Sách lậu</a></li>
+            <li class="news_menu-item"> <a href="">Lịch phát hành sách định kỳ</a></li>
+        </ul>
+    </div>
+    <li class="introduce">
+        <div class="introduce_title">
+            <div class="introduce_title-text">Công nghệ</div>
+            <div class="introduce_title-icon"><i class="fa-solid fa-chevron-down"></i></div>
+        </div>
+    </li>
+    <div class="introduce_menu">
+        <ul class="introduce_menu-list">
+            <li class="introduce_menu-item"> <a href=""> Giới thiệu nhà xuất bản</a></li>
+            <li class="introduce_menu-item"> <a href="">Tác giả - Tác phẩm</a> </li>
+            <li class="introduce_menu-item"> <a href="">Công tác xã hội</a> </li>
+            <li class="introduce_menu-item"> <a href="">Khen tưởng của Nhà nước</a> </li>
+            <li class="introduce_menu-item"> <a href="">Hợp tác quốc tế</a> </li>
+            <li class="introduce_menu-item"> <a href="">Hệ thống nhà sách</a> </li>
+        </ul>
+    </div>
+</ul>
+<div class="main_banner" th:fragment="banner">
+            <div class="banner_img"><img src="/shop/img/ms_banner_img1.webp" alt=""></div>
+            <div class="banner_img"><img src="/shop/img/ms_banner_img2.webp" alt=""></div>
+            <div class="banner_img"><img src="/shop/img/ms_banner_img3.webp" alt=""></div>
+            <div class="banner_img"><img src="/shop/img/ms_banner_img4.webp" alt=""></div>
+            <div class="banner_img"><img src="/shop/img/ms_banner_img5.webp" alt=""></div>
+</div>
+<div class="title_page-content" th:fragment="title_page-content">
+    <div class="wrapper">
+        <h2 class="title_page-big" th:text="${displayText}"></h2>
+        <div class="title_page-small">
+            <span><a th:href="@{/shop/home}">Trang chủ</a></span>
+            <span>/</span>
+            <span th:text="${displayText}"></span>
+        </div>
+    </div>
+</div>
+<div id="footer" th:fragment="footer">
+    <div class="wrapper">
+        <div class="footer_main">
+            <div class="footer_row1">
+                <div class="footer_column">
+                    <div class="footer_column-title">Dịch vụ</div>
+                    <ul class="footer_column-list">
+                        <li class="footer_column-item"> <a href="">Điều khoản sử dụng</a> </li>
+                        <li class="footer_column-item"> <a href="">Chính sách bảo mật</a> </li>
+                        <li class="footer_column-item"> <a href="">Liên hệ</a> </li>
+                        <li class="footer_column-item"> <a href="">Hệ thống nhà sách</a> </li>
+                        <li class="footer_column-item"> <a href="">Tra cứu đơn hàng</a> </li>
+                    </ul>
+                </div>
+                <div class="footer_column">
+                    <div class="footer_column-title"> HỖ TRỢ</div>
+                    <ul class="footer_column-list">
+                        <li class="footer_column-item"> <a href="">Hướng dẫn đặt hàng</a> </li>
+                        <li class="footer_column-item"> <a href="">Chính sách đổi trả - hoàn tiền</a> </li>
+                        <li class="footer_column-item"> <a href="">Phương thức vận chuyển</a> </li>
+                        <li class="footer_column-item"> <a href="">Phương thức thanh toán</a> </li>
+                        <li class="footer_column-item"> <a href="">Chính sách khách hàng mua sỉ</a> </li>
+                        <li class="footer_column-item"> <a href="">Chính sách khách hàng cho trường học</a> </li>
+                    </ul>
+                </div>
+                <div class="footer_column">
+                    <div class="footer_column-title">NHÀ XUẤT BẢN KIM ĐỒNG</div>
+                    <ul class="footer_column-list">
+                        <li class="footer_column-item"> Giám đốc: Bùi Tuấn Nghĩa </li>
+                        <li class="footer_column-item"> Địa chỉ: Số 55 Quang Trung, Nguyễn Du, Hai Bà Trưng, Hà Nội </li>
+                        <li class="footer_column-item"> Số điện thoại:<a href=""> (+84) 1900571595</a> </li>
+                        <li class="footer_column-item"> <a href="">Email: cskh_online@nxbkimdong.com.vn</a> </li>
+                    </ul>
+                </div>
+                <div class="footer_column">
+                    <div class="footer_column-title">KẾT NỐI MẠNG XÃ HỘI</div>
+                    <ul class="footer_column-list">
+                        <li class="footer_column-item">
+                            <a href=""><div class="footer_column-item-icon-1"><i class="fa-brands fa-facebook-f"></i></div> </a>
+                            <a href=""><div class="footer_column-item-icon-2"><i class="fa-brands fa-youtube"></i></div></a>
+                            <a href=""><div class="footer_column-item-icon-3"><i class="fa-brands fa-instagram"></i></div></a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_row2">
+                <div class="footer_column">
+                    <div class="footer_column-title">GIẤY PHÉP KINH DOANH</div>
+                    <ul class="footer_column-list">
+                        <li class="footer_column-item"> <a href="">Giấy phép số: L 517/GP-BTTTT ngày 6/10/2015 của Bộ Thông tin và Truyền thông</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer_column">
+                    <div class="footer_column-title"></div>
+                    <ul class="footer_column-list">
+                        <li class="footer_column-item"> <a href=""><img src="./src/assets/img/BCT.webp" alt=""></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer_column">
+                    <div class="footer_column-title">ĐĂNG KÝ NHẬN TIN</div>
+                    <ul class="footer_column-list">
+                        <li class="footer_column-item"> <a href="">
+                            Hãy nhập địa chỉ email của bạn vào ô dưới đây để có thể nhận được tất cả các tin tức
+                            mới nhất của NXB Kim Đồng về các sản phẩm mới, các chương trình khuyến mãi mới.
+                            NXB Kim Đồng xin đảm bảo sẽ không gửi mail rác, mail spam tới bạn.
+                        </a>
+                        </li>
+                        <li class="footer_column-item">
+                            <input class="footer_column-item-input" placeholder="Nhập Email của bạn"></input>
+                            <button class="footer_column-item-submit">Đăng ký</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copy-right">
+        COPYRIGHTS © 2021 BY <a href="">NXB KIM ĐỒNG</a>. <a href="">POWERED BY HARAVAN</a>
+    </div>
+</div>
+</body>
+<script src="/shop/js/index.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</html>

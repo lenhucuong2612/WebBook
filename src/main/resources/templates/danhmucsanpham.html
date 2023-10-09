@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="/shop/css/danhmucsanpham.css">
+    <link rel="stylesheet" href="/shop/css/index.css">
+    <link rel="stylesheet" href="/shop/css/main.css">
+    <title>Chi tiết sản phẩm</title>
+</head>
+
+<body>
+<!-- Phần header -->
+
+<div id="header">
+    <div th:replace="fragment :: header_top"></div>
+    <div th:replace="fragment :: header_middle"></div>
+    <div class="header_bottom">
+        <div class="title_page">
+            <div class="title_page-overlay"></div>
+            <div class="wrapper">
+                <ul th:replace="fragment::menu">
+
+                </ul>
+                <div th:replace="fragment::title_page-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hết phần header -->
+<!-- Phần giữa -->
+<div id="container">
+    <div class="wrapper">
+        <div class="container-main">
+            <!-- Danh mục bộ sưu tập -->
+            <div class="container_left">
+                <div class="collection-categories">
+                    <button class=" collection-categories-btn  close-panel">
+                        <span>Danh mục sản phẩm</span>
+                    </button>
+                    <div class="collection-categories-panel">
+                        <ul class="collection-categories-list">
+                            <li class="collection-categories_item">
+                                <a th:href="@{/shop/category/all/1}">Tất cả sản phẩm</a>
+                            </li>
+                            <li class="collection-categories_item" th:each="categories: ${categories}">
+                                <a th:href="@{/shop/category/{id}/1 (id=${categories.id})}">
+                                    <div class="collection-categories_item-text" th:text="${categories.name}"></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Lọc theo giá -->
+                <div class="collection-filter-price">
+                    <button class=" collection-filter-price-btn  close-panel">
+                        <span>Khoảng giá</span>
+                    </button>
+                    <div class="collection-filter-price-panel">
+                        <ul class="collection-filter-price-list">
+                            <form id="price-filter-form" method="GET">
+                                <ul class="collection-filter-price">
+                                    <li class="collection-filter-price-item">
+                                        <label for="radio-less-than-20000">
+                                            <input type="radio" name="filter-price" value="lessthan20000" id="radio-less-than-20000">
+                                            <span>Nhỏ hơn 20,000đ</span>
+                                        </label>
+                                    </li>
+                                    <li class="collection-filter-price-item">
+                                        <label for="radio-20000-to-40000">
+                                            <input type="radio" name="filter-price" value="20000-to-40000" id="radio-20000-to-40000">
+                                            <span>Từ 20,000đ đến 40,000đ</span>
+                                        </label>
+                                    </li>
+                                    <li class="collection-filter-price-item">
+                                        <label for="radio-40000-to-60000">
+                                            <input type="radio" name="filter-price" value="40000-to-60000" id="radio-40000-to-60000">
+                                            <span>Từ 40,000đ đến 60,000đ</span>
+                                        </label>
+                                    </li>
+                                    <li class="collection-filter-price-item">
+                                        <label for="radio-60000-to-100000">
+                                            <input type="radio" name="filter-price" value="60000-to-100000" id="radio-60000-to-100000">
+                                            <span>Từ 60,000đ đến 100,000đ</span>
+                                        </label>
+                                    </li>
+                                    <li class="collection-filter-price-item">
+                                        <label for="radio-100000-to-200000">
+                                            <input type="radio" name="filter-price" value="100000-to-200000" id="radio-100000-to-200000">
+                                            <span>Từ 100,000đ đến 200,000đ</span>
+                                        </label>
+                                    </li>
+                                    <li class="collection-filter-price-item">
+                                        <label for="radio-big-than-200000">
+                                            <input type="radio" name="filter-price" value="big-than-200000" id="radio-big-than-200000">
+                                            <span>Trên 200,000đ</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </form>
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- Lọc theo tác giả -->
+                <div class="collection-filter-vendor">
+                    <button class=" collection-filter-vendor-btn  close-panel">
+                        <span>Tác giả</span>
+                    </button>
+                    <div class="collection-filter-vendor-panel">
+                        <ul class="collection-filter-vendor-list">
+                            <li class="collection-filter-vendor-item">
+                                <label for="">
+                                    <input type="radio" name="filter-vendor" >
+                                    <span>Khác</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Lọc theo thể loại -->
+                <div class="collection-filter-type">
+                    <button class=" collection-filter-type-btn  close-panel">
+                        <span>Thể loại</span>
+                    </button>
+                    <div class="collection-filter-type-panel">
+                        <ul class="collection-filter-type-list">
+                            <li class="collection-filter-type-item">
+                                <label for="">
+                                    <input type="radio" name="filter-type" >
+                                    <span>Lịch sử - Truyền thống</span>
+                                </label>
+                            </li>
+                            <li class="collection-filter-type-item">
+                                <label for="">
+                                    <input type="radio" name="filter-type" id="">
+                                    <span>Lịch sử - Truyền thống</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Phần hiển thị sản phẩm bên phải -->
+            <div class="container_right">
+                <div class="container_right-main">
+                    <div class="container_right-header">
+                        <h3 class="container_right-title" th:text="${displayText}"></h3>
+                        <div class="container_right-filter-main">
+                            <label for="SortBy">Sắp xếp</label>
+                            <select name="SortBy" id="SortBy" method="GET">
+                                <option value="all" selected>Tùy chọn</option>
+                                <option value="best_selling">Bán chạy nhất</option>
+                                <option value="name_az">Tên A - Z</option>
+                                <option value="name_za">Tên Z - A</option>
+                                <option value="price_asc">Giá tăng dần</option>
+                                <option value="price_desc">Giá giảm dần</option>
+                                <option value="latest">Mới nhất</option>
+                                <option value="oldest">Cũ nhất</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="container_right-content">
+                        <div class="product-list" th:if="${size}!=0">
+                            <a class="product-item" th:each="products:${categoryProduct}" th:href="@{/shop/home/product/{productId}(productId=${products.id})}">
+                                <div class="item-img"><img th:src="@{/productImages/{imageName}(imageName=${products.imageName})}" alt=""></div>
+                                <div class="item-name" th:text="${products.name}"></div>
+                                <div class="item-price">
+                                    <span class="current-price"><span th:text="${#numbers.formatDecimal(products.salePrice, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                                    <span class="original-price"><span th:text="${#numbers.formatDecimal(products.price, 0, 'COMMA', 0, 'POINT')}"></span> đ</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="product-list" th:if="${size}==0">
+                            <h2>Sản phẩm trống</h2>
+                        </div>
+                    </div>
+
+                    <div class="container_right-panigation" th:if="${size}>12">
+                        <div class="panigation-custom">
+                            <span class="prevpage" th:if="${currentPage >=2} ">
+                                 <a th:if="${currentPage!=i && id!=null}" th:href="@{'/shop/category/'+${id}+'/'+${currentPage-1}}"><i class="fa-solid fa-angles-left"></i></a>
+                                <a th:if="${currentPage!=i && id==null}" th:href="@{'/shop/category/all/'+${currentPage-1}}"><i class="fa-solid fa-angles-left"></i></a>
+                            </span>
+                            <span class="page" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                 <a th:if="${currentPage!=i && id!=null}" th:href="@{'/shop/category/'+${id}+'/'+${i}}">[[${i}]]</a>
+                                <a th:if="${currentPage!=i && id==null}" th:href="@{'/shop/category/all/'+${i}}">[[${i}]]</a>
+                                <span class="page-active_new" th:if="${currentPage==i}" th:text="${i}"></span>
+                            </span>
+                            <span class="nextpage" th:if="${currentPage <totalPages} ">
+                                <a th:if="${currentPage!=i && id!=null}" th:href="@{'/shop/category/'+${id}+'/'+${currentPage+1}}"><i class="fa-solid fa-angles-right"></i></a>
+                                <a th:if="${currentPage!=i && id==null}" th:href="@{'/shop/category/all/'+${currentPage+1}}"><i class="fa-solid fa-angles-right"></i></a>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hết phần giữa -->
+<hr class="line">
+<!-- Phần footer -->
+<div th:replace="fragment :: footer"></div><!-- Hết phần footer -->
+<!-- Phần btn để click vào sẽ về đầu trang -->
+<!--
+<div id="backtop"><i class="fa-solid fa-chevron-up"></i></div>
+-->
+<!-- Phần form đăng ký đăng nhập -->
+
+<div class="overlay d-none"></div>
+
+</body>
+<!-- import slick slider -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="/shop/js/index.js"></script>
+<script src="/shop/js/danhmucsanpham.js"></script>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="/shop/css/giohang.css">
+    <link rel="stylesheet" href="/shop/css/main.css">
+    <title>Giỏ hàng</title>
+</head>
+
+<body>
+<!-- Phần header -->
+<div id="header">
+    <div th:replace="fragment :: header_top"></div>
+    <div th:replace="fragment :: header_middle"></div>
+</div>
+<!-- Hết phần header -->
+<!-- Phần giữa -->
+<div id="container">
+    <div class="wrapper">
+        <div class="container_main">
+            <h1 class="cart_title">Giỏ hàng</h1>
+                <table style="width: 100%;">
+
+                       <tr>
+                           <th>Sản phẩm</th>
+                           <th>Đơn giá</th>
+                           <th>Số lượng</th>
+                           <th>Tổng giá</th>
+                       </tr>
+                      <form th:action="@{/shop/updateCart}" method="POST">
+                          <tr th:each="cartItem:${shoppingCart.cartItems}">
+                              <td>
+                                  <div class="cart_product" >
+                                      <input th:value="${cartItem.product.id}" type="hidden" name="id">
+                                      <div class="cart_product-img"><img th:src="@{/productImages/{imageName}(imageName=${cartItem.product.imageName})}" alt=""></div>
+                                      <div class="cart_product-info">
+                                          <div class="cart_product-name"><a th:text="${cartItem.product.name}" th:href="@{/shop/home/product/{id}(id=${cartItem.product.id})}"></a></div>
+                                          <div class="cart_product-sale">Khuyến mãi: 1042595726 - Đón trung thu tới -
+                                              Khuyến mãi 15%</div>
+                                          <div class="cart_product-remove"><button name="action" value="delete" title="Delete">Xóa</button></div>
+                                          <div class="cart_product-remove"><button name="action" value="update" title="Update">Cập nhật</button></div>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="cart_product-price">
+                                      <span  th:text="${#numbers.formatDecimal(cartItem.unitPrice, 0, 'COMMA', 0, 'POINT')}+'đ'"></span>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="cart_product-quantity">
+                                      <button type="button" class="cart_product-quantity-minus"><i class="fa-solid fa-minus"></i></button>
+                                      <input id="cart_product-quantity" type="number" th:value="${cartItem.quantity}" name="quantity">
+                                      <button type="button" class="cart_product-quantity-plus"><i class="fa-solid fa-plus"></i></button>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="cart_product-totalprice">
+                                      <span th:text="${#numbers.formatDecimal(cartItem.unitPrice*cartItem.quantity, 0, 'COMMA', 0, 'POINT')}+đ"></span>
+                                  </div>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td colspan="2">
+                                  <div class="cart_node">
+                                      <div>Ghi chú</div>
+                                      <textarea class="cart_node-input" name="" id="" cols="10" rows="2"></textarea>
+                                  </div>
+                              </td>
+                              <td colspan="2">
+                                  <div style="text-align: right;">
+                                      <div class="total_price">
+                                          <span class="subtotal-title">Tạm tính</span>
+                                          <span class="subtotal" th:text="${#numbers.formatDecimal(subTotal, 0, 'COMMA', 0, 'POINT')}+'đ'"></span>
+                                      </div>
+                                      <button class="cart_btn" type="submit" name="action" value="update" title="Update">Cập nhật</button>
+                                      <button class="cart_btn">Thanh toán</button>
+                                  </div>
+                              </td>
+                          </tr>
+                      </form>
+                </table>
+        </div>
+    </div>
+</div>
+<!-- Hết phần giữa -->
+<hr class="line">
+<!-- Phần footer -->
+<div th:replace="fragment :: footer"></div>
+ <!-- Hết phần footer -->
+<!-- Phần btn để click vào sẽ về đầu trang -->
+<div id="backtop"><i class="fa-solid fa-chevron-up"></i></div>
+<!-- Phần form đăng ký đăng nhập -->
+
+<div class="overlay d-none"></div>
+
+</body>
+<!-- import slick slider -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="/shop/js/index.js"></script>
+<script src="/shop/js/giohang.js"></script>
+
+</html>
